@@ -17,7 +17,7 @@ begin
 	end
 rescue Interrupt
 	puts "\nThanks for playing!"
-rescue StandardError => err
-	puts err.message
+# rescue StandardError => err
+# 	puts "ERROR: #{err.message}"
 end
 

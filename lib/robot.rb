@@ -9,32 +9,49 @@ class Robot
 	end
 
 	def place(x,y)
-		self.position_x = x if valid_x_position?(x)
-		self.position_y = y if valid_y_position?(y)
+		if x_position_valid?(x) &&  y_position_valid?(y)
+			self.position_x = x.to_i
+			self.position_y = y.to_i
+		end
 	end
 
 	def placed?
 		!position_x.nil? && !position_y.nil?
 	end
 
+	def position
+		[position_x, position_y] if placed?
+	end
+
 	def face(direction)
-		self.facing = direction if valid_direction?(direction)
+		self.facing = direction if direction_valid?(direction)
 	end
 
 	def move
-
+		if placed? && facing?
+			case facing
+				when "NORTH"
+					self.position_y += 1 if move_north_valid?
+				when "EAST"
+					self.position_x += 1 if move_east_valid?
+				when "SOUTH"
+					self.position_y -= 1 if move_south_valid?
+				when "WEST"
+					self.position_x -= 1 if move_west_valid?
+			end
+		end
 	end
 
 	def turn_left
-		self.facing = DIRECTIONS.rotate(-1).first
+		self.facing = DIRECTIONS.rotate(DIRECTIONS.index(self.facing) - 1).first if facing?
 	end
 
 	def turn_right
-
+		self.facing = DIRECTIONS.rotate(DIRECTIONS.index(self.facing) + 1).first if facing?
 	end
 
 	def report
-		"I am at #{position_x},#{position_y} - facing #{facing}" if placed? && facing?
+		"I am at position #{position_x},#{position_y} facing #{facing}" if placed? && facing?
 	end
 
 
@@ -44,16 +61,32 @@ class Robot
 			!facing.nil?
 		end
 
-		def valid_x_position?(x)
+		def x_position_valid?(x)
 			x.to_i.between?(table.min_x_position, table.max_x_position)
 		end
 
-		def valid_y_position?(y)
+		def y_position_valid?(y)
 			y.to_i.between?(table.min_y_position, table.max_y_position)
 		end
 
-		def valid_direction?(direction)
+		def direction_valid?(direction)
 			DIRECTIONS.include?(direction)
+		end
+
+		def move_north_valid?
+			position_y < table.max_y_position
+		end
+
+		def move_east_valid?
+			position_x < table.max_x_position
+		end
+
+		def move_south_valid?
+			position_y > table.min_y_position
+		end
+
+		def move_west_valid?
+			position_x > table.min_x_position
 		end
 
 end
