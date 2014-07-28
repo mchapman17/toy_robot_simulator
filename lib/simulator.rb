@@ -22,13 +22,13 @@ class Simulator
 				@robot.place(x,y)
 				@robot.face(direction)
 			when "MOVE"
-				puts "move"
+				
 			when "LEFT"
 
 			when "RIGHT"
 
 			when "REPORT"
-
+				@robot.report
 			else
 				puts "Invalid command '#{command}'"
 		end
