@@ -7,6 +7,7 @@ This is a command-line program which simulates a robot moving on a table. The fo
 * LEFT - Turns the robot 90 degrees left.
 * RIGHT - Turns the robot 90 degrees right.
 * REPORT - Outputs the robot's current position on the table.
+* CTRL+C - Exit.
 
 ### Rules & Assumptions
 
@@ -17,7 +18,8 @@ This is a command-line program which simulates a robot moving on a table. The fo
 
 ### How To Run
 
-Run `ruby toy_robot_simulator.rb` from within the \bin folder.
+* Fork this repository.
+* Run `ruby toy_robot_simulator.rb` from within the \bin folder.
 
 
 ### How To Test
