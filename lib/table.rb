@@ -9,5 +9,12 @@ class Table
 		@max_y_position = max_y_position
 	end
 
+	def x_position_valid?(x)
+		x.to_i.between?(min_x_position, max_x_position)
+	end
+
+	def y_position_valid?(y)
+		y.to_i.between?(min_y_position, max_y_position)
+	end
 
 end

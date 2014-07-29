@@ -33,4 +33,26 @@ describe Table do
 		end
 	end
 
+	describe "#x_position_valid?(x)" do
+
+		it "returns true if X is within range" do
+			expect(Table.new(4,2).x_position_valid?(1)).to be true
+		end
+
+		it "returns false if X is outside the range" do
+			expect(Table.new(3,1).x_position_valid?(4)).to be false
+		end
+	end
+
+	describe "#y_position_valid?(y)" do
+
+		it "returns true if Y is within range" do
+			expect(Table.new(5,4).y_position_valid?(3)).to be true
+		end
+
+		it "returns false if Y is outside the range" do
+			expect(Table.new(2,6).y_position_valid?(7)).to be false
+		end
+	end
+
 end

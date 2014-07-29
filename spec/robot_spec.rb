@@ -80,6 +80,17 @@ describe Robot do
 		end	
 	end
 
+	describe "#direction_valid?(direction)" do
+
+		it "returns true if the direction is valid" do
+			expect(@robot.direction_valid?("EAST")).to be true
+		end
+
+		it "returns true if the direction is valid" do
+			expect(@robot.direction_valid?("INVALID")).to be false
+		end
+	end
+
 	describe "#move" do
 
 		describe "when the move is valid" do

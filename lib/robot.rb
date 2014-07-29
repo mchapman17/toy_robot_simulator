@@ -9,7 +9,7 @@ class Robot
 	end
 
 	def place(x,y)
-		if x_position_valid?(x) &&  y_position_valid?(y)
+		if table.x_position_valid?(x) &&  table.y_position_valid?(y)
 			self.position_x = x.to_i
 			self.position_y = y.to_i
 		end
@@ -25,6 +25,10 @@ class Robot
 
 	def face(direction)
 		self.facing = direction if direction_valid?(direction)
+	end
+
+	def direction_valid?(direction)
+		DIRECTIONS.include?(direction)
 	end
 
 	def move
@@ -59,18 +63,6 @@ class Robot
 
 		def facing?
 			!facing.nil?
-		end
-
-		def x_position_valid?(x)
-			x.to_i.between?(table.min_x_position, table.max_x_position)
-		end
-
-		def y_position_valid?(y)
-			y.to_i.between?(table.min_y_position, table.max_y_position)
-		end
-
-		def direction_valid?(direction)
-			DIRECTIONS.include?(direction)
 		end
 
 		def move_north_valid?

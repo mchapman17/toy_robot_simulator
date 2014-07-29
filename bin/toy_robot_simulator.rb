@@ -6,7 +6,7 @@ require '../lib/robot.rb'
 simulator = Simulator.new
 
 puts "Welcome to the Toy Robot Simulator!"
-puts "Valid commands are PLACE(X,Y,(NORTH|EAST|SOUTH|WEST)), MOVE, LEFT, RIGHT, REPORT"
+puts "Valid commands are PLACE X,Y,(NORTH|EAST|SOUTH|WEST), MOVE, LEFT, RIGHT, REPORT"
 puts "Press CTRL+C to exit"
 
 begin
@@ -17,7 +17,7 @@ begin
 	end
 rescue Interrupt
 	puts "\nThanks for playing!"
-# rescue StandardError => err
-# 	puts "ERROR: #{err.message}"
+rescue StandardError => err
+	puts "A malfunction has occurred: #{err.message}"
 end
 
