@@ -43,6 +43,10 @@ describe Simulator do
 
 	describe "when given invalid input" do
 
+		it "doesn't accept invalid commands" do
+			expect { @simulator.process("INVALID") }.to output(/Invalid command/).to_stdout
+		end
+
 		it "doesn't place the robot when given invalid coordinates" do
 			expect { @simulator.process("PLACE 9,7,NORTH") }.to output(/Invalid PLACE command/).to_stdout
 		end
