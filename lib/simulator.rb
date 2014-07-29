@@ -11,24 +11,16 @@ class Simulator
 		return if input.strip.empty?
 
 		command = input.split(" ").first
-		unless valid_command?(command)
-			puts "Invalid command '#{command}'"
-			return
+		puts "Invalid command '#{command}'" && return unless valid_command?(command)
+
+		if command == "PLACE"
+			args = input.partition(" ").last.gsub(/\s+/,'') # get everything after the PLACE command and remove whitespace
+			return unless valid_place_args?(args)
+			x, y, direction = args.split(",")
 		end
 
 		case command
 			when "PLACE"
-				args = input.partition(" ").last
-				args.gsub!(/\s+/,'')
-				unless args.split(",").length == 3
-					puts "PLACE must have three arguments"
-					return
-				end
-				x, y, direction = args.split(",")
-				unless Robot::DIRECTIONS.include?(direction)
-					puts "PLACE must have a valid direction (NORTH|EAST|SOUTH|WEST)"
-					return
-				end
 				@robot.place(x,y)
 				@robot.face(direction)
 			when "MOVE"
@@ -38,7 +30,7 @@ class Simulator
 			when "RIGHT"
 				@robot.turn_right
 			when "REPORT"
-				@robot.report
+				puts @robot.report
 		end
 	end
 
@@ -47,6 +39,29 @@ class Simulator
 
 		def valid_command?(input)
 			VALID_COMMANDS.include?(command)
+		end
+
+		def valid_place_args?(args)
+			valid_number_of_place_args?(args) && valid_direction?(args)
+		end
+
+		def valid_number_of_args?(args)
+			if args.split(",").length == 3
+				true
+			else
+				puts "PLACE must have three arguments"
+				false
+			end
+		end
+
+		def valid_direction?(args)
+			direction = args.split(",").last
+			if Robot::DIRECTIONS.include?(direction)
+				true
+			else
+				puts "PLACE must have a valid direction (NORTH|EAST|SOUTH|WEST)"
+				false
+			end
 		end
 
 end
