@@ -12,7 +12,7 @@ puts "Press CTRL+C to exit"
 begin
 	input = STDIN.gets
 	while input
-		puts simulator.process(input)
+		simulator.process(input)
 		input = STDIN.gets
 	end
 rescue Interrupt

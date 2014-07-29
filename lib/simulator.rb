@@ -26,16 +26,12 @@ class Simulator
 			when "PLACE"
 				@robot.place(x,y)
 				@robot.face(direction)
-				nil
 			when "MOVE"
 				@robot.move
-				nil
 			when "LEFT"
 				@robot.turn_left
-				nil
 			when "RIGHT"
 				@robot.turn_right
-				nil
 			when "REPORT"
 				puts @robot.report
 		end
