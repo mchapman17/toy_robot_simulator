@@ -10,14 +10,14 @@ puts "Valid commands are PLACE X,Y,(NORTH|EAST|SOUTH|WEST), MOVE, LEFT, RIGHT, R
 puts "Press CTRL+C to exit"
 
 begin
-	input = STDIN.gets
-	while input
-		simulator.process(input)
-		input = STDIN.gets
-	end
+  input = STDIN.gets
+  while input
+    simulator.process(input)
+    input = STDIN.gets
+  end
 rescue Interrupt
-	puts "\nThanks for playing!"
+  puts "\nThanks for playing!"
 rescue StandardError => err
-	puts "A malfunction has occurred: #{err.message}"
+  puts "A malfunction has occurred: #{err.message}"
 end
 
