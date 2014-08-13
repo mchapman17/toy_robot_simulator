@@ -7,4 +7,4 @@ echo '--- bundling'
 bundle
 
 echo '--- running specs'
-./bin/rspec
+rspec spec
