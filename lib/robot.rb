@@ -8,11 +8,10 @@ class Robot
     @table = table
   end
 
-  def place(x,y)
-    if table.x_position_valid?(x) && table.y_position_valid?(y)
-      self.position_x = x.to_i
-      self.position_y = y.to_i
-    end
+  def place(x, y)
+    return unless table.positions_valid?(x, y)
+    self.position_x = x.to_i
+    self.position_y = y.to_i
   end
 
   def placed?
@@ -32,26 +31,25 @@ class Robot
   end
 
   def move
-    if placed? && facing?
-      case facing
-        when "NORTH"
-          self.position_y += 1 if move_north_valid?
-        when "EAST"
-          self.position_x += 1 if move_east_valid?
-        when "SOUTH"
-          self.position_y -= 1 if move_south_valid?
-        when "WEST"
-          self.position_x -= 1 if move_west_valid?
-      end
+    return unless placed? && facing?
+    case facing
+      when 'NORTH'
+        self.position_y += 1 if move_north_valid?
+      when 'EAST'
+        self.position_x += 1 if move_east_valid?
+      when 'SOUTH'
+        self.position_y -= 1 if move_south_valid?
+      when 'WEST'
+        self.position_x -= 1 if move_west_valid?
     end
   end
 
   def turn_left
-    self.facing = DIRECTIONS.rotate(DIRECTIONS.index(self.facing) - 1).first if facing?
+    self.facing = DIRECTIONS.rotate(DIRECTIONS.index(facing) - 1).first if facing?
   end
 
   def turn_right
-    self.facing = DIRECTIONS.rotate(DIRECTIONS.index(self.facing) + 1).first if facing?
+    self.facing = DIRECTIONS.rotate(DIRECTIONS.index(facing) + 1).first if facing?
   end
 
   def report
