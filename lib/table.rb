@@ -1,7 +1,5 @@
 class Table
 
-  attr_reader :min_x_position, :min_y_position, :max_x_position, :max_y_position
-
   def initialize(max_x_position = 4, max_y_position = 4)
     @min_x_position = 0
     @min_y_position = 0
@@ -15,6 +13,8 @@ class Table
 
 
   private
+
+    attr_reader :min_x_position, :min_y_position, :max_x_position, :max_y_position
 
     def x_position_valid?(x)
       x.to_i.between?(min_x_position, max_x_position)

@@ -9,7 +9,7 @@ class Robot
   end
 
   def place(x, y)
-    return unless table.positions_valid?(x, y)
+    return unless table_positions_valid?(x, y)
     self.position_x = x.to_i
     self.position_y = y.to_i
   end
@@ -34,13 +34,13 @@ class Robot
     return unless placed? && facing?
     case facing
       when 'NORTH'
-        self.position_y += 1 if move_north_valid?
+        self.position_y += 1 if table_positions_valid?(position_x, position_y + 1)
       when 'EAST'
-        self.position_x += 1 if move_east_valid?
+        self.position_x += 1 if table_positions_valid?(position_x + 1, position_y)
       when 'SOUTH'
-        self.position_y -= 1 if move_south_valid?
+        self.position_y -= 1 if table_positions_valid?(position_x, position_y - 1)
       when 'WEST'
-        self.position_x -= 1 if move_west_valid?
+        self.position_x -= 1 if table_positions_valid?(position_x - 1, position_y)
     end
   end
 
@@ -63,20 +63,8 @@ class Robot
       !facing.nil?
     end
 
-    def move_north_valid?
-      position_y < table.max_y_position
-    end
-
-    def move_east_valid?
-      position_x < table.max_x_position
-    end
-
-    def move_south_valid?
-      position_y > table.min_y_position
-    end
-
-    def move_west_valid?
-      position_x > table.min_x_position
+    def table_positions_valid?(x, y)
+      table.positions_valid?(x, y)
     end
 
 end

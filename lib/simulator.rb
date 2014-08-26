@@ -51,8 +51,7 @@ class Simulator
         true
       else
         puts 'Invalid PLACE command. Must be in the form ' \
-             "PLACE X(0-#{@table.max_x_position})," \
-             "Y(0-#{@table.max_y_position}),(#{Robot::DIRECTIONS.join('|')})"
+             "PLACE X,Y,(#{Robot::DIRECTIONS.join('|')})"
       end
     end
 end

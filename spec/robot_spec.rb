@@ -93,7 +93,7 @@ describe Robot do
 
   describe "#move" do
 
-    describe "when the move is valid" do
+    context "when the move is valid" do
 
       it "moves the robot north one unit" do
         @robot.place(0, 0)
@@ -124,7 +124,7 @@ describe Robot do
       end
     end
 
-    describe "when the move is not valid" do
+    context "when the move is not valid" do
 
       it "doesn't move the robot north" do
         @robot.place(4, 4)
