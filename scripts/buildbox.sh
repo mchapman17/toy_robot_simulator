@@ -8,3 +8,4 @@ bundle
 
 echo '--- running specs'
 rspec spec
+
