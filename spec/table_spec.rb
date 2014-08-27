@@ -36,17 +36,16 @@ describe Table do
       end
     end
 
-    pending "with a hole specified" do
+    describe "with a hole specified" do
 
-      let(:table) { Table.new(width: 5, height: 5,
-                              hole_min_x_position: 2, hole_min_y_position: 3,
-                              hole_max_x_position: 1, hole_max_y_position: 2) }
+      let(:table) { Table.new(width: 5, height: 5, hole: hole) }
+      let(:hole) { Hole.new(origin: Position.new(x: 1, y: 2), width: 1, height: 1) }
 
       it "returns true if the X and Y positions are within range and not in the hole" do
         expect(table.positions_valid?(0, 0)).to be true
       end
 
-      it "returns true if the X and Y positions are within range and not in the hole" do
+      it "returns false if the X and Y positions are within range and in the hole" do
         expect(table.positions_valid?(2, 3)).to be false
       end
 
