@@ -1,8 +1,12 @@
 class Robot
 
-  attr_accessor :table, :position_x, :position_y, :facing
+  extend Forwardable
+
+  attr_reader :table, :position, :facing
 
   DIRECTIONS = %w(NORTH EAST SOUTH WEST)
+
+  delegate :coordinates => :position
 
   def initialize(table)
     @table = table
@@ -10,16 +14,11 @@ class Robot
 
   def place(x, y)
     return unless table_positions_valid?(x, y)
-    self.position_x = x.to_i
-    self.position_y = y.to_i
+    self.position = Position.new(x: x, y: y)
   end
 
   def placed?
-    !position_x.nil? && !position_y.nil?
-  end
-
-  def position
-    [position_x, position_y] if placed?
+    !position.nil?
   end
 
   def face(direction)
@@ -34,13 +33,13 @@ class Robot
     return unless placed? && facing?
     case facing
       when 'NORTH'
-        self.position_y += 1 if table_positions_valid?(position_x, position_y + 1)
+        move_north if table_positions_valid?(position.x, position.y + 1)
       when 'EAST'
-        self.position_x += 1 if table_positions_valid?(position_x + 1, position_y)
+        move_east if table_positions_valid?(position.x + 1, position.y)
       when 'SOUTH'
-        self.position_y -= 1 if table_positions_valid?(position_x, position_y - 1)
+        move_south if table_positions_valid?(position.x, position.y - 1)
       when 'WEST'
-        self.position_x -= 1 if table_positions_valid?(position_x - 1, position_y)
+        move_west if table_positions_valid?(position.x - 1, position.y)
     end
   end
 
@@ -53,11 +52,13 @@ class Robot
   end
 
   def report
-    "I am at position #{position_x},#{position_y} facing #{facing}" if placed? && facing?
+    puts "I am at position #{position.x},#{position.y} facing #{facing}" if placed? && facing?
   end
 
 
   private
+
+    attr_writer :position, :facing
 
     def facing?
       !facing.nil?
@@ -65,6 +66,22 @@ class Robot
 
     def table_positions_valid?(x, y)
       table.positions_valid?(x, y)
+    end
+
+    def move_north
+      self.position = Position.new(x: position.x, y: position.y + 1)
+    end
+
+    def move_east
+      self.position = Position.new(x: position.x + 1, y: position.y)
+    end
+
+    def move_south
+      self.position = Position.new(x: position.x, y: position.y - 1)
+    end
+
+    def move_west
+      self.position = Position.new(x: position.x - 1, y: position.y)
     end
 
 end

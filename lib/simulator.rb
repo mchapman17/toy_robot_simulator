@@ -32,7 +32,7 @@ class Simulator
       when 'RIGHT'
         @robot.turn_right
       when 'REPORT'
-        puts @robot.report
+        @robot.report
     end
   end
 

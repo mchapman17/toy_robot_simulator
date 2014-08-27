@@ -1,44 +1,26 @@
-class NullHole
-  # Avdi Grimm post - null object pattern - naught
-end
-
-class Hole
-
-  def initialize(min_x_position:, min_y_position:, max_x_position:, max_y_position:)
-    @min_x_position = min_x_position
-    @min_y_position = min_y_position
-    @max_x_position = max_x_position
-    @max_y_position = max_y_position
-  end
-
-end
-
-
 class Table
 
-  def initialize(min_x_position: 0, min_y_position: 0, max_x_position: 4, max_y_position: 4, hole: NullHole.new)
-    @min_x_position = min_x_position
-    @min_y_position = min_y_position
-    @max_x_position = max_x_position
-    @max_y_position = max_y_position
-    @hole = hole
+  def initialize(width: 4, height: 4)
+    @origin = Position.new(x: 0, y: 0)
+    @width = width
+    @height = height
   end
 
   def positions_valid?(x, y)
-    x_position_valid?(x) && y_position_valid?(y)
+    position_x_valid?(x) && position_y_valid?(y)
   end
 
 
   private
 
-    attr_reader :min_x_position, :min_y_position, :max_x_position, :max_y_position
+    attr_reader :origin, :width, :height
 
-    def x_position_valid?(x)
-      x.between?(min_x_position, max_x_position)
+    def position_x_valid?(x)
+      x.between?(origin.x, width)
     end
 
-    def y_position_valid?(y)
-      y.between?(min_y_position, max_y_position)
+    def position_y_valid?(y)
+      y.between?(origin.y, height)
     end
 
 

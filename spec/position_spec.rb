@@ -2,24 +2,35 @@ require 'spec_helper'
 
 describe Position do
 
-  describe "#coordinates" do
+  describe "initial state" do
 
     context "with default values" do
 
-      let(:position) { Position.new }
+      it "sets the X coordinate" do
+        expect(Position.new.x).to eq(0)
+      end
 
-      it "returns the default X and Y values" do
-        expect(position.coordinates).to eq [0, 0]
+      it "sets the Y coordinate" do
+        expect(Position.new.y).to eq(0)
       end
     end
 
-    context "with values specified" do
+    context "with sepcified values" do
 
-      let(:position) { Position.new(x: 1, y: 2) }
-
-      it "returns the specified X and Y values" do
-        expect(position.coordinates).to eq [1, 2]
+      it "sets the X coordinate" do
+        expect(Position.new(x: 1).x).to eq(1)
       end
+
+      it "sets the Y coordinate" do
+        expect(Position.new(y: 3).y).to eq(3)
+      end
+    end
+  end
+
+  describe "#coordinates" do
+
+    it "returns the specified X and Y values" do
+      expect(Position.new(x: 1, y: 2).coordinates).to eq [1, 2]
     end
   end
 
