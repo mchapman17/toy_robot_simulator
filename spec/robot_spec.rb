@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Robot do
 
   before do
-    @table = Table.new(4, 4)
+    @table = Table.new(max_x_position: 4, max_y_position: 4)
     @robot = Robot.new(@table)
   end
 

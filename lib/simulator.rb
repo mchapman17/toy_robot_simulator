@@ -52,6 +52,7 @@ class Simulator
       else
         puts 'Invalid PLACE command. Must be in the form ' \
              "PLACE X,Y,(#{Robot::DIRECTIONS.join('|')})"
+        false
       end
     end
 end
