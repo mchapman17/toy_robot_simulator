@@ -11,20 +11,18 @@ class Simulator
     return if input.strip.empty?
 
     command = input.split(' ').first
-    unless valid_command?(command)
-      puts "Invalid command '#{command}'"
-      return
-    end
+    return unless valid_command?(command)
 
-    if command == 'PLACE'
+    if place_command?(command)
       # Get everything after the PLACE command and remove whitespace
       args = input.partition(' ').last.gsub(/\s+/, '')
       return unless valid_place_args?(args)
-      x, y, direction = args.split(',')
     end
 
     case command
       when 'PLACE'
+        args = args.split(',')
+        x, y, direction = args[0].to_i, args[1].to_i, args[2]
         @robot.place(x, y)
         @robot.face(direction)
       when 'MOVE'
@@ -42,12 +40,21 @@ class Simulator
   private
 
     def valid_command?(command)
-      VALID_COMMANDS.include?(command)
+      if VALID_COMMANDS.include?(command)
+        true
+      else
+        puts "Invalid command '#{command}'"
+        false
+      end
+    end
+
+    def place_command?(command)
+      command == 'PLACE'
     end
 
     def valid_place_args?(args)
       x, y, direction = args.split(',')
-      if @table.positions_valid?(x, y) && @robot.direction_valid?(direction)
+      if @table.positions_valid?(x.to_i, y.to_i) && @robot.direction_valid?(direction)
         true
       else
         puts 'Invalid PLACE command. Must be in the form ' \
@@ -55,4 +62,5 @@ class Simulator
         false
       end
     end
+
 end

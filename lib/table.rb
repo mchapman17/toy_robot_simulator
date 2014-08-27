@@ -25,14 +25,13 @@ class Table
   end
 
   def positions_valid?(x, y)
-    x_position_valid?(x) && y_position_valid?(y) && !position_in_hole?(x, y)
+    x_position_valid?(x) && y_position_valid?(y)
   end
 
 
   private
 
-    attr_reader :min_x_position, :min_y_position, :max_x_position, :max_y_position,
-                :hole_min_x_position, :hole_min_y_position, :hole_max_x_position, :hole_max_y_position
+    attr_reader :min_x_position, :min_y_position, :max_x_position, :max_y_position
 
     def x_position_valid?(x)
       x.between?(min_x_position, max_x_position)
@@ -40,11 +39,6 @@ class Table
 
     def y_position_valid?(y)
       y.between?(min_y_position, max_y_position)
-    end
-
-    def position_in_hole?(x, y)
-      x.between?(min_x_position + hole_min_x_position, min_x_position + hole_min_x_position + hole_max_x_position) &&
-        y.between?(min_y_position + hole_min_y_position, min_y_position + hole_min_y_position + hole_max_y_position)
     end
 
 
